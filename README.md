@@ -10,3 +10,14 @@
 <br/>data_analise.ipynb - анализ датасета
 <br/>parse_data.py - сборка арбитражных ситуаций с минутных данных
 <br/>parse_trade_data.py - сборка арбитражных ситуаций с данных о сделках
+
+## Технологии
+<br/>ccxt
+<br/>pandas
+<br/>numpy
+<br/>seaborn
+<br/>sql
+<br/>sqllite3
+<br/>matplotlib.pyplot
+<br/>asyncio
+<br/>tqdm

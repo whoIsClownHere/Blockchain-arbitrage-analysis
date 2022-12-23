@@ -1,0 +1,7 @@
+asyncio
+ccxt
+tqdm
+pandas
+seaborn
+datetime
+

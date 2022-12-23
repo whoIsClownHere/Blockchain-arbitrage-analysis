@@ -18,7 +18,6 @@
   <li>numpy</li>
   <li>seaborn</li>
   <li>sql</li>
-  <li>sqllite3</li>
   <li>matplotlib.pyplot</li>
   <li>asyncio</li>
   <li>tqdm</li>

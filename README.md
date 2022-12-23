@@ -14,12 +14,12 @@
 ## Технологии
 <ul>
   <li>ccxt</li>
-  <br/>pandas
-  <br/>numpy
-  <br/>seaborn
-  <br/>sql
-  <br/>sqllite3
-  <br/>matplotlib.pyplot
-  <br/>asyncio
-  <br/>tqdm
+  <li>pandas</li>
+  <li>numpy</li>
+  <li>seaborn</li>
+  <li>sql</li>
+  <li>sqllite3</li>
+  <li>matplotlib.pyplot</li>
+  <li>asyncio</li>
+  <li>tqdm</li>
 </ul>

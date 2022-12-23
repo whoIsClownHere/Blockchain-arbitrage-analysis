@@ -1,4 +1,6 @@
 # Blockchain-arbitration
+
+## О файлах
 <br/>analis_strategy_classic.ipynb - файл в котором анализируется классическая стратегия
 <br/>analis_strategy_new.ipynb - файл в котором анализируется классическая стратегия
 <br/>check_db_data.py - файл в котором проверяется целостность собранных данных

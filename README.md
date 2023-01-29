@@ -1,17 +1,19 @@
 # Blockchain-arbitration
 
-## О файлах
-<br/>analis_strategy_classic.ipynb - файл в котором анализируется классическая стратегия
-<br/>analis_strategy_new.ipynb - файл в котором анализируется классическая стратегия
-<br/>check_db_data.py - файл в котором проверяется целостность собранных данных
-<br/>collect_data.py - файл в котором собираются минутные данные за месяц
-<br/>collect_data_trades.py - файл в котором собираются данные по сделкам за день
-<br/>comparison.ipynb - сравнение арбитражных ситуаций, собранных на минутных данных и на данных о сделках
-<br/>data_analise.ipynb - анализ датасета
-<br/>parse_data.py - сборка арбитражных ситуаций с минутных данных
-<br/>parse_trade_data.py - сборка арбитражных ситуаций с данных о сделках
+## About files
+<ul>
+  <li><br/>analis_strategy_classic.ipynb - File in which the classic strategy is analyzed</li>
+  <li><br/>analis_strategy_new.ipynb - File in which the classic strategy is analyzed</li>
+  <li><br/>check_db_data.py - File in which the integrity of the collected data is checked</li>
+  <li><br/>collect_data.py - File that collects minute data for a month</li>
+  <li><br/>collect_data_trades.py - File that collects data on transactions per day</li>
+  <li><br/>comparison.ipynb - Comparison of arbitrage situations collected on minute data and on trade data</li>
+  <li><br/>data_analise.ipynb - Dataset analysis</li>
+  <li><br/>parse_data.py - Collection of arbitrage situations from minute data</li>
+  <li><br/>parse_trade_data.py - Collection of arbitrage situations from trade data</li>
+</ul>
 
-## Технологии
+## Technologies
 <ul>
   <li>ccxt</li>
   <li>pandas</li>

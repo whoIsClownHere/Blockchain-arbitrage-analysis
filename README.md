@@ -1,5 +1,8 @@
 # Blockchain-arbitration
 
+Подробный анализ ситуаций блокчейн-арбитража. Сбор данных с разных бирж, анализ спреда, сравнение и расчет рисков двух прибыльных стратегий.
+
+
 ## About files
 <ul>
   <li>analis_strategy_classic.ipynb - File in which the classic strategy is analyzed</li>

@@ -1,15 +1,15 @@
 ```
 ╔══════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                  ║
-║    ██████╗ ██╗      ██████╗  ██████╗██╗  ██╗ ██████╗██╗  ██╗ █████╗ ██╗███╗   ║
-║    ██╔══██╗██║     ██╔═══██╗██╔════╝██║ ██╔╝██╔════╝██║  ██║██╔══██╗██║████╗  ║
-║    ██████╔╝██║     ██║   ██║██║     █████╔╝ ██║     ███████║███████║██║██╔██╗ ║
-║    ██╔══██╗██║     ██║   ██║██║     ██╔═██╗ ██║     ██╔══██║██╔══██║██║██║╚██╗║
-║    ██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗╚██████╗██║  ██║██║  ██║██║██║ ╚█║
-║    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ║
+║    ██████╗ ██╗      ██████╗  ██████╗██╗  ██╗ ██████╗██╗  ██╗ █████╗ ██╗███╗      ║
+║    ██╔══██╗██║     ██╔═══██╗██╔════╝██║ ██╔╝██╔════╝██║  ██║██╔══██╗██║████╗     ║
+║    ██████╔╝██║     ██║   ██║██║     █████╔╝ ██║     ███████║███████║██║██╔██╗    ║
+║    ██╔══██╗██║     ██║   ██║██║     ██╔═██╗ ██║     ██╔══██║██╔══██║██║██║╚██╗   ║
+║    ██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗╚██████╗██║  ██║██║  ██║██║██║ ╚█    ║
+║    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝       ║
 ║                                                                                  ║
-║              A R B I T R A G E   A N A L Y S I S   E N G I N E                 ║
-║                      [ Blockchain Research · Yandex ]                           ║
+║              A R B I T R A G E   A N A L Y S I S   E N G I N E                   ║
+║                      [ Blockchain Research · Yandex ]                            ║
 ╚══════════════════════════════════════════════════════════════════════════════════╝
 ```
 
@@ -31,17 +31,17 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  SYSTEM OVERVIEW                                               v1.0  │
+│  SYSTEM OVERVIEW                                               v1.0 │
 ├─────────────────────────────────────────────────────────────────────┤
-│                                                                      │
+│                                                                     │
 │  Target Period  : November 2022  (FTX collapse window)              │
-│  Exchanges      : 9 (Binance, Huobi, MEXC, LBank, Bitrue,          │
-│                      WhiteBit, KuCoin, HitBTC, Digifinex)          │
+│  Exchanges      : 9 (Binance, Huobi, MEXC, LBank, Bitrue,           │
+│                      WhiteBit, KuCoin, HitBTC, Digifinex)           │
 │  Data Points    : ~43,200 minute-candles per ticker                 │
 │  Quote Pairs    : USDT, BTC, ETH, SOL                               │
 │  Storage        : SQLite  (Price_history.sqlite)                    │
 │  Strategies     : Classic arbitrage  +  New spread strategy         │
-│                                                                      │
+│                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -73,16 +73,16 @@ Blockchain-arbitrage-analysis/
 
 ```
                         ┌──────────────────────────────────┐
-                        │         EXCHANGE LAYER            │
-                        │                                   │
+                        │         EXCHANGE LAYER           │
+                        │                                  │
                         │  ┌────────┐      ┌────────────┐  │
                         │  │Binance │      │   Huobi    │  │
                         │  └───┬────┘      └─────┬──────┘  │
-                        │      │                 │          │
+                        │      │                 │         │
                         │  ┌───┴───┐    ┌────────┴──────┐  │
                         │  │ MEXC  │    │    WhiteBit   │  │
                         │  └───┬───┘    └────────┬──────┘  │
-                        │      │                 │          │
+                        │      │                 │         │
                         │  ┌───┴───────┐  ┌──────┴──────┐  │
                         │  │  LBank2   │  │   Bitrue    │  │
                         │  └───────────┘  └─────────────┘  │
@@ -90,32 +90,32 @@ Blockchain-arbitrage-analysis/
                                        │  ccxt async API
                                        ▼
                         ┌──────────────────────────────────┐
-                        │         COLLECTION LAYER          │
-                        │                                   │
-                        │   collect_data.py                 │
+                        │         COLLECTION LAYER         │
+                        │                                  │
+                        │   collect_data.py                │
                         │   ┌──────────────────────────┐   │
-                        │   │  asyncio  +  ProcessPool  │   │
-                        │   │  (1 process / exchange)   │   │
+                        │   │  asyncio  +  ProcessPool │   │
+                        │   │  (1 process / exchange)  │   │
                         │   └──────────┬───────────────┘   │
                         └──────────────┼───────────────────┘
                                        │  1-min OHLCV
                                        ▼
                         ┌──────────────────────────────────┐
-                        │          STORAGE LAYER            │
-                        │                                   │
-                        │   Price_history.sqlite            │
+                        │          STORAGE LAYER           │
+                        │                                  │
+                        │   Price_history.sqlite           │
                         │   ┌──────────────────────────┐   │
                         │   │ ticker│date│O│H│L│C│vol  │   │
-                        │   │ ──────┼────┼─┼─┼─┼─┼─── │   │
-                        │   │  …   │ …  │…│…│…│…│ …  │   │
+                        │   │ ──────┼────┼─┼─┼─┼─┼──── │   │
+                        │   │  …   │ …  │…│…│…│…│ …    │   │
                         │   └──────────────────────────┘   │
                         └──────────────┬───────────────────┘
                                        │
                                        ▼
                         ┌──────────────────────────────────┐
-                        │          ANALYSIS LAYER           │
-                        │                                   │
-                        │   parse_data.py                   │
+                        │          ANALYSIS LAYER          │
+                        │                                  │
+                        │   parse_data.py                  │
                         │   ┌──────────────────────────┐   │
                         │   │  Spread = (sell/buy-1)%  │   │
                         │   │  Filter: 1% < s < 100%   │   │
@@ -125,14 +125,14 @@ Blockchain-arbitrage-analysis/
                                        │  arbitrage_data.tsv
                                        ▼
                         ┌──────────────────────────────────┐
-                        │          STRATEGY LAYER           │
-                        │                                   │
+                        │          STRATEGY LAYER          │
+                        │                                  │
                         │  ┌─────────────┐  ┌───────────┐  │
                         │  │   Classic   │  │    New    │  │
                         │  │  Strategy   │  │  Strategy │  │
                         │  └──────┬──────┘  └─────┬─────┘  │
-                        │         └────────┬────────┘       │
-                        │              comparison.ipynb      │
+                        │         └────────┬────────┘      │
+                        │              comparison.ipynb    │
                         └──────────────────────────────────┘
 ```
 
@@ -170,8 +170,8 @@ Blockchain-arbitrage-analysis/
    0.5%  │
    0.0%  ╰────────────────────────────────────────────────────────
          Nov 1    Nov 8    Nov 15   Nov 22    Nov 30
-                               ▲
-                        FTX collapse (Nov 11)
+                      ▲
+            FTX collapse (Nov 11)
 ```
 
 ```
@@ -329,14 +329,14 @@ The collector supports all 9 exchanges with **auto-tuned rate limits**:
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
 │  1. data_analise.ipynb                                               │
-│     └─ EDA, spread distributions, exchange activity heatmaps        │
+│     └─ EDA, spread distributions, exchange activity heatmaps         │
 │                                                                      │
 │  2. analis_strategy_classic.ipynb                                    │
 │     └─ Classic simultaneous buy/sell arbitrage analysis              │
 │        Profit per trade · Win rate · Duration statistics             │
 │                                                                      │
 │  3. analis_strategy_new.ipynb                                        │
-│     └─ New strategy: hold through the spread window                 │
+│     └─ New strategy: hold through the spread window                  │
 │        Entry/exit timing · Risk-adjusted returns                     │
 │                                                                      │
 │  4. comparison.ipynb                                                 │
@@ -355,19 +355,19 @@ The collector supports all 9 exchanges with **auto-tuned rate limits**:
 │  KEY FINDINGS  (November 2022)                                       │
 ├──────────────────────────────────────────────────────────────────────┤
 │                                                                      │
-│  ► The FTX collapse (Nov 11) created abnormally large and           │
+│  ► The FTX collapse (Nov 11) created abnormally large and            │
 │    long-lasting spread windows across all exchange pairs             │
 │                                                                      │
-│  ► MEXC ↔ Bitrue showed the highest average spread (~3.1%)          │
+│  ► MEXC ↔ Bitrue showed the highest average spread (~3.1%)           │
 │    making it the most attractive pair for the new strategy           │
 │                                                                      │
-│  ► ~38% of all arbitrage opportunities lasted under 1 minute —      │
+│  ► ~38% of all arbitrage opportunities lasted under 1 minute —       │
 │    practically inaccessible without co-location infrastructure       │
 │                                                                      │
-│  ► The "new strategy" outperforms classic by ~0.6% per trade        │
+│  ► The "new strategy" outperforms classic by ~0.6% per trade         │
 │    but introduces directional risk during hold periods               │
 │                                                                      │
-│  ► Quote-currency normalization (BTC/ETH/SOL → USDT) is critical:  │
+│  ► Quote-currency normalization (BTC/ETH/SOL → USDT) is critical:    │
 │    raw spread numbers without conversion are misleading              │
 │                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
@@ -400,7 +400,7 @@ Contributions welcome.
 
   ┌─────────────────────────────────────────────────┐
   │  git fork → branch → commit → pull request      │
-  │  Issues and ideas? Open a GitHub Issue.          │
+  │  Issues and ideas? Open a GitHub Issue.         │
   └─────────────────────────────────────────────────┘
 ```
 
@@ -419,7 +419,7 @@ MIT License — free to use, modify, and distribute.
 
 ```
 ╔══════════════════════════════════════════════════════╗
-║   [  BLOCKCHAIN ARBITRAGE ANALYSIS ENGINE  v1.0  ]  ║
+║   [  BLOCKCHAIN ARBITRAGE ANALYSIS ENGINE  v1.0  ]   ║
 ║              Session terminated.                     ║
 ║              Connection closed.                      ║
 ╚══════════════════════════════════════════════════════╝

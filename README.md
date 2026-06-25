@@ -1,25 +1,25 @@
 ```
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                  ║
-║    ██████╗ ██╗      ██████╗  ██████╗██╗  ██╗ ██████╗██╗  ██╗ █████╗ ██╗███╗      ║
-║    ██╔══██╗██║     ██╔═══██╗██╔════╝██║ ██╔╝██╔════╝██║  ██║██╔══██╗██║████╗     ║
-║    ██████╔╝██║     ██║   ██║██║     █████╔╝ ██║     ███████║███████║██║██╔██╗    ║
-║    ██╔══██╗██║     ██║   ██║██║     ██╔═██╗ ██║     ██╔══██║██╔══██║██║██║╚██╗   ║
-║    ██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗╚██████╗██║  ██║██║  ██║██║██║ ╚█    ║
-║    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝       ║
-║                                                                                  ║
-║              A R B I T R A G E   A N A L Y S I S   E N G I N E                   ║
-║                      [ Blockchain Research · Yandex ]                            ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                      ║
+║    ██████╗ ██╗      ██████╗  ██████╗██╗  ██╗ ██████╗██╗  ██╗ █████╗ ██╗███╗   ██╗    ║
+║    ██╔══██╗██║     ██╔═══██╗██╔════╝██║ ██╔╝██╔════╝██║  ██║██╔══██╗██║████╗  ██║    ║
+║    ██████╔╝██║     ██║   ██║██║     █████╔╝ ██║     ███████║███████║██║██╔██╗ ██║    ║
+║    ██╔══██╗██║     ██║   ██║██║     ██╔═██╗ ██║     ██╔══██║██╔══██║██║██║╚██╗██║    ║
+║    ██████╔╝███████╗╚██████╔╝╚██████╗██║  ██╗╚██████╗██║  ██║██║  ██║██║██║ ╚████║    ║
+║    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝    ║
+║                                                                                      ║
+║                  A R B I T R A G E   A N A L Y S I S   E N G I N E                   ║
+║                           [ Blockchain Research · Yandex ]                           ║
+╚══════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
-![ccxt](https://img.shields.io/badge/CCXT-Exchange_API-000000?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![ccxt](https://img.shields.io/badge/CCXT-Exchange_API-000000?style=for-the-badge)](https://github.com/ccxt/ccxt)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 *Detailed analysis of blockchain arbitrage opportunities across 9 major exchanges — spread detection, risk modeling, and strategy comparison.*
 
@@ -27,7 +27,7 @@
 
 ---
 
-## `$ ./overview --verbose`
+## Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -49,7 +49,7 @@
 
 ---
 
-## `$ ls -la`
+## Project Structure
 
 ```
 Blockchain-arbitrage-analysis/
@@ -69,7 +69,7 @@ Blockchain-arbitrage-analysis/
 
 ---
 
-## `$ cat architecture.txt`
+## Architecture
 
 ```
                         ┌──────────────────────────────────┐
@@ -138,7 +138,7 @@ Blockchain-arbitrage-analysis/
 
 ---
 
-## `$ python simulate_spread.py --chart`
+## Spread Analysis
 
 ```
   SPREAD DISTRIBUTION ACROSS EXCHANGES  (Nov 2022)
@@ -190,7 +190,7 @@ Blockchain-arbitrage-analysis/
 
 ---
 
-## `$ python strategy_compare.py`
+## Strategy Comparison
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
@@ -218,7 +218,7 @@ Blockchain-arbitrage-analysis/
 
 ---
 
-## `$ pip install -r requirements.txt && python setup.py`
+## Installation
 
 ### Prerequisites
 
@@ -253,7 +253,7 @@ datetime    ← timestamp handling
 
 ---
 
-## `$ python collect_data.py --exchange binance`
+## Data Collection
 
 ```
 [COLLECTOR] Starting data collection pipeline...
@@ -287,7 +287,7 @@ The collector supports all 9 exchanges with **auto-tuned rate limits**:
 
 ---
 
-## `$ python parse_data.py --all-exchanges`
+## Parsing & Spread Detection
 
 ```
 [PARSER] Loading price history from SQLite...
@@ -321,7 +321,7 @@ The collector supports all 9 exchanges with **auto-tuned rate limits**:
 
 ---
 
-## `$ jupyter notebook`
+## Notebooks
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
@@ -348,7 +348,7 @@ The collector supports all 9 exchanges with **auto-tuned rate limits**:
 
 ---
 
-## `$ cat key_findings.txt`
+## Key Findings
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
@@ -375,7 +375,7 @@ The collector supports all 9 exchanges with **auto-tuned rate limits**:
 
 ---
 
-## `$ cat tech_stack.json`
+## Tech Stack
 
 ```json
 {
@@ -393,7 +393,7 @@ The collector supports all 9 exchanges with **auto-tuned rate limits**:
 
 ---
 
-## `$ git log --oneline`
+## Contributing
 
 ```
 Contributions welcome.
@@ -406,7 +406,7 @@ Contributions welcome.
 
 ---
 
-## `$ cat LICENSE`
+## License
 
 ```
 MIT License — free to use, modify, and distribute.

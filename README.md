@@ -198,7 +198,7 @@ Blockchain-arbitrage-analysis/
 ├──────────────────────────┬───────────────────────────────────────────┤
 │  CLASSIC ARBITRAGE       │  NEW SPREAD STRATEGY                      │
 ├──────────────────────────┼───────────────────────────────────────────┤
-│  Buy low on exchange A   │  Enter on spread detection                │
+│  Buy low on exchange A   │  Enter long and short on spread detection │
 │  Simultaneously sell on  │  Hold position through spread window      │
 │  exchange B              │  Exit on spread compression               │
 ├──────────────────────────┼───────────────────────────────────────────┤

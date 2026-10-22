@@ -1,0 +1,18 @@
+# Data produced by the scripts (hundreds of MB)
+data/
+*.sqlite
+*.tsv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/

@@ -1,13 +1,16 @@
+**Русский** | [English](README.en.md)
+
 # Аналитика блокчейн-арбитража
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)](arbitrage_analysis.ipynb)
 [![ccxt](https://img.shields.io/badge/ccxt-exchange_API-000000)](https://github.com/ccxt/ccxt)
 [![SQLite](https://img.shields.io/badge/SQLite-storage-003B57?logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![nbviewer](https://img.shields.io/badge/nbviewer-открыть_ноутбук-F37626?logo=jupyter&logoColor=white)](https://nbviewer.org/github/whoIsClownHere/Blockchain-arbitrage-analysis/blob/main/arbitrage_analysis.ipynb)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 Собрали минутные цены всех торговых пар с шести криптобирж за ноябрь 2022, нашли почти **миллион арбитражных ситуаций** и проверили две стратегии заработка на них: классическую (купить → перевести → продать) и новую (long + short без перевода токена).
 
-Весь анализ — в одном ноутбуке: **[arbitrage_analysis.ipynb](arbitrage_analysis.ipynb)**. Презентация — [Big Data presentation.pdf](Big%20Data%20presentation.pdf).
+Весь анализ — в одном ноутбуке: **[arbitrage_analysis.ipynb](arbitrage_analysis.ipynb)** (если GitHub не отображает его, откройте через [nbviewer](https://nbviewer.org/github/whoIsClownHere/Blockchain-arbitrage-analysis/blob/main/arbitrage_analysis.ipynb)). Презентация — [docs/presentation.pdf](docs/presentation.pdf).
 
 ## Главное
 
@@ -19,45 +22,46 @@
 | Средний spread | **2.45%** |
 | Средняя длительность ситуации | **23 мин 45 с** |
 | Классическая стратегия, $100 × 1000 сделок за месяц | **$2 552 – $2 957** прибыли |
-| Новая стратегия, $100 × 1000 сделок за месяц | **$2 101 – $3 048** прибыли |
+| Новая стратегия, $100 × 1000 сделок за месяц | **$2 101 – $3 048** прибыли* |
 | Успешность новой стратегии | long — **85.0%**, short — **86.7%** |
 
 Прибыль — 95% интервал по симуляции (случайная выборка 1000 ситуаций, много повторов), без учёта комиссий.
+\* Требует перепроверки, см. [Ограничения](#ограничения).
 
 ## Как это работает
 
 ```mermaid
 flowchart LR
-    API["API бирж<br/>(ccxt)"] -->|collect_data.py| DB[("Price_history.sqlite<br/>минутные свечи")]
-    DB -->|parse_data.py| ARB["arbitrage_data.tsv<br/>арбитражные ситуации"]
-    API -->|collect_data_trades.py| TDB[("Trades_history.sqlite<br/>реальные трейды")]
-    TDB -->|parse_trade_data.py| TARB["arbitrage_trade_data.tsv"]
+    API["API бирж<br/>(ccxt)"] -->|src/collect_data.py| DB[("data/Price_history.sqlite<br/>минутные свечи")]
+    DB -->|src/parse_data.py| ARB["data/arbitrage_data.tsv<br/>арбитражные ситуации"]
+    API -->|src/collect_data_trades.py| TDB[("data/Trades_history.sqlite<br/>реальные трейды")]
+    TDB -->|src/parse_trade_data.py| TARB["data/arbitrage_trade_data.tsv"]
     ARB --> NB["arbitrage_analysis.ipynb"]
     TARB --> NB
 ```
 
 ### 1. Сбор данных
 
-[collect_data.py](collect_data.py) скачивает через `fetch_ohlcv` из [ccxt](https://github.com/ccxt/ccxt) минутные свечи по **всем** парам биржи. Каждая биржа обрабатывается в отдельном процессе, внутри — несколько asyncio-групп тикеров. Для каждой биржи подобраны размер запроса и число групп, чтобы не упираться в rate limit. Данные складываются в SQLite: одна таблица на биржу, колонки `ticker, date, open, highest, lowest, close, volume`.
+[src/collect_data.py](src/collect_data.py) скачивает через `fetch_ohlcv` из [ccxt](https://github.com/ccxt/ccxt) минутные свечи по **всем** парам биржи. Каждая биржа обрабатывается в отдельном процессе, внутри — несколько asyncio-групп тикеров. Для каждой биржи подобраны размер запроса и число групп, чтобы не упираться в rate limit. Данные складываются в SQLite: одна таблица на биржу, колонки `ticker, date, open, highest, lowest, close, volume`.
 
-[check_db_data.py](check_db_data.py) проверяет, по скольким парам данные не скачались.
+[src/check_db_data.py](src/check_db_data.py) проверяет, по скольким парам данные не скачались.
 
 ![Алгоритм получения данных](images/slide_data_collection.png)
 
 ### 2. Поиск арбитражных ситуаций
 
-[parse_data.py](parse_data.py) проходит по каждой минуте месяца (43 200 минут), каждой паре бирж и каждому общему тикеру:
+[src/parse_data.py](src/parse_data.py) проходит по каждой минуте месяца (43 200 минут), каждой паре бирж и каждому общему тикеру:
 
 - **Цена покупки** на бирже A — максимум минутной свечи, **цена продажи** на бирже B — минимум. Это пессимистичная оценка: берём худшие цены за минуту.
 - **Spread** — на сколько процентов вырастут $100, если купить токен на A и продать на B.
-- Пары к BTC, ETH и SOL переводятся в доллары по среднечасовому курсу на Binance, поэтому все спреды сравнимы.
+- Пары к BTC, ETH и SOL переводятся в доллары по курсу на Binance, поэтому все спреды сравнимы.
 - Ситуацией считаем **spread от 1% до 100%**. Подряд идущие минуты с таким спредом склеиваются в одну ситуацию.
 
 Для каждой ситуации сохраняются средний spread, цены на старте и в конце, время начала и конца, тикер и пара бирж. Данных немного, поэтому результат пишется в TSV — его легко открыть в pandas.
 
 ### 3. Реальные трейды
 
-[collect_data_trades.py](collect_data_trades.py) и [parse_trade_data.py](parse_trade_data.py) делают то же самое по реальным сделкам (а не свечам) для Binance и LBank за 1 ноября 2022. Это нужно, чтобы проверить, насколько ситуации на минутных данных реальны.
+[src/collect_data_trades.py](src/collect_data_trades.py) и [src/parse_trade_data.py](src/parse_trade_data.py) делают то же самое по реальным сделкам (а не свечам) для Binance и LBank за 1 ноября 2022. Это нужно, чтобы проверить, насколько ситуации на минутных данных реальны.
 
 ## Результаты
 
@@ -132,19 +136,24 @@ flowchart LR
 - Прибыль считается без комиссий бирж, комиссии за перевод и проскальзывания.
 - Минутные свечи завышают спред и длительность ситуаций по сравнению с реальными трейдами.
 - Ноябрь 2022 — нетипичный месяц из-за краха FTX.
+- В оценке прибыли новой стратегии short-часть считается по спреду на старте, без учёта движения цены на бирже B за время сделки. Подробности — в ноутбуке, в разделе «Новая стратегия».
 
 ## Структура репозитория
 
 ```
-├── arbitrage_analysis.ipynb   # весь анализ: общая аналитика, обе стратегии, сравнение с трейдами
-├── collect_data.py            # сбор минутных свечей → Price_history.sqlite
-├── check_db_data.py           # проверка полноты собранных данных
-├── parse_data.py              # поиск арбитражных ситуаций → arbitrage_data.tsv
-├── collect_data_trades.py     # сбор реальных трейдов Binance и LBank → Trades_history.sqlite
-├── parse_trade_data.py        # поиск ситуаций по трейдам → arbitrage_trade_data.tsv
-├── images/                    # графики из ноутбука и схемы из презентации
-├── Big Data presentation.pdf  # презентация проекта
-└── requirements.txt
+├── arbitrage_analysis.ipynb     # весь анализ: общая аналитика, обе стратегии, сравнение с трейдами
+├── src/
+│   ├── collect_data.py          # сбор минутных свечей → data/Price_history.sqlite
+│   ├── check_db_data.py         # проверка полноты собранных данных
+│   ├── parse_data.py            # поиск арбитражных ситуаций → data/arbitrage_data.tsv
+│   ├── collect_data_trades.py   # сбор реальных трейдов → data/Trades_history.sqlite
+│   ├── parse_trade_data.py      # поиск ситуаций по трейдам → data/arbitrage_trade_data.tsv
+│   └── common.py                # общие пути и пересчёт BTC/ETH/SOL в USDT
+├── data/                        # создаётся скриптами, не хранится в git
+├── images/                      # графики из ноутбука и схемы из презентации
+├── docs/presentation.pdf        # презентация проекта
+├── requirements.txt
+└── LICENSE
 ```
 
 ## Запуск
@@ -154,16 +163,15 @@ git clone https://github.com/whoIsClownHere/Blockchain-arbitrage-analysis.git
 cd Blockchain-arbitrage-analysis
 pip install -r requirements.txt
 
-python collect_data.py         # список бирж — в main(); нужно 10+ ядер
-python parse_data.py
-python collect_data_trades.py
-python parse_trade_data.py
+python src/collect_data.py --exchanges binance huobi mexc lbank2 bitrue whitebit
+python src/parse_data.py
+python src/collect_data_trades.py
+python src/parse_trade_data.py
 
-mkdir -p Datasets && mv arbitrage_data.tsv arbitrage_trade_data.tsv Datasets/
 jupyter notebook arbitrage_analysis.ipynb
 ```
 
-Сбор данных идёт долго: скрипты скачивают историю по всем парам каждой биржи. `collect_data.py` написан под Windows (`WindowsSelectorEventLoopPolicy`); на macOS и Linux эту строку нужно убрать.
+По умолчанию скрипты берут период исследования (ноябрь 2022) и складывают всё в `data/`. Период, биржи и пути меняются аргументами, полный список — `python src/<скрипт>.py --help`. Сбор идёт долго: скачивается история по всем парам каждой биржи, и для каждой биржи запускается отдельный процесс.
 
 ## Авторы
 
